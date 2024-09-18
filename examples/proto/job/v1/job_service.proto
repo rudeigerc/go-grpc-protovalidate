@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package job.v1;
+
+import "google/api/annotations.proto";
+import "google/api/client.proto";
+import "google/api/field_behavior.proto";
+import "job/v1/job.proto";
+
+option go_package = "github.com/rudeigerc/go-grpc-protovalidate/examples/jobpb;jobpb";
+
+service JobService {
+  option (google.api.default_host) = "apis.rudeigerc.dev";
+
+  // Creates a Job.
+  rpc CreateJob(CreateJobRequest) returns (Job) {
+    option (google.api.http) = {
+      post: "/v1/{parent=namespaces/*}/jobs"
+      body: "job"
+    };
+    option (google.api.method_signature) = "parent,job";
+  }
+}
+
+// Request message for JobService.
+message CreateJobRequest {
+  // Required. The resource name of the Namespace to create the Job in.
+  // Format: `namespaces/{namespace}`
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The Job to create.
+  Job job = 2 [(google.api.field_behavior) = REQUIRED];
+}

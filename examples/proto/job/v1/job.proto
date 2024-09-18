@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package job.v1;
+
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "google/api/resource.proto";
+
+option go_package = "github.com/rudeigerc/go-grpc-protovalidate/examples/jobpb;jobpb";
+
+message Job {
+  option (google.api.resource) = {
+    type: "apis.rudeigerc.dev/Job"
+    pattern: "namespaces/{namespace}/jobs/{job}"
+  };
+
+  // Output only. Resource name of a Job.
+  string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // Required. The display name of the Job.
+  string display_name = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).cel = {
+      id: "valid_display_name"
+      message: "."
+      expression: "this.matches('^[a-z0-9]([-a-z0-9]*[a-z0-9])?$')"
+    }
+  ];
+}
