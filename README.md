@@ -1,6 +1,7 @@
 # go-grpc-protovalidate
 
-> [!CAUTION] WORK IN PROGRESS
+> [!CAUTION]
+> WORK IN PROGRESS
 
 A [gRPC Go](https://github.com/grpc/grpc-go) middleware for validating messages via [bufbuild/protovalidate](https://github.com/bufbuild/protovalidate) following Google's API Improvement Proposals [AIP-193](https://google.aip.dev/193).
 
